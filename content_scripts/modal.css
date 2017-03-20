@@ -1,3 +1,5 @@
+/* TODO: define font and make it look a bit nicer */
+
 .modal {
   position: fixed; /* Stay in place */
   z-index: 1000000; /* Sit on top */

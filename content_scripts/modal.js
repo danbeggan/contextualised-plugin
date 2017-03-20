@@ -1,7 +1,11 @@
 // Waits for a message to be passed from index.js and generates modal
 browser.runtime.onMessage.addListener(createModal);
 
+var search_id;
+
 function createModal(message, sender) {
+  search_id = message.search_id;
+
   // Creates div elements
   var modal = document.createElement("div");
   modal.setAttribute("class", "modal" );
@@ -53,6 +57,7 @@ function createModal(message, sender) {
 
   feedbackButton.onclick = function() {
     // TODO: send message to background script to return good or bad result
+    browser.runtime.sendMessage({"type": "feedback", "search_id": search_id ,"feedback": true});
 
     modal.remove();
     // send message
