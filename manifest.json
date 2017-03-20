@@ -1,0 +1,31 @@
+{
+    "manifest_version": 2,
+
+    "name": "Contextualised",
+
+    "version": "0.1",
+
+    "description": "Returns further information for highlighted text.",
+
+    "icons": {
+        "48": "icons/ic_info_black_48dp_1x.png"
+    },
+
+    "permissions": [
+      "<all_urls>",
+      "contextMenus",
+      "activeTab"
+    ],
+
+    "background": {
+      "scripts": ["background_scripts/index.js","background_scripts/context_menu.js"]
+    },
+
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "css": ["content_scripts/modal.css"],
+        "js": ["content_scripts/modal.js"]
+      }
+    ]
+}
