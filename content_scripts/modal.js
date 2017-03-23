@@ -19,7 +19,7 @@ function createModal(message, sender) {
 
   var feedbackButton = document.createElement('span');
   feedbackButton.setAttribute("class", "feedback" );
-  var feedbackButtonContent = document.createTextNode("This was helpful!");
+  var feedbackButtonContent = document.createTextNode("This was relevant");
 
   var heading = document.createElement("h1");
   var headingContent = document.createTextNode(message.title);

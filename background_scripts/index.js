@@ -6,37 +6,28 @@ function handleMessage(message, sender){
 
   // 2 types for message query or feedback
   if (message.type === 'query'){
-    getDismbiguation(message, tab_id);
+    getInformation(message, tab_id);
   }else{
     sendFeedback(message, tab_id);
   }
 }
 
-function getDismbiguation(message, tab_id){
+function getInformation(message, tab_id){
   var selected_text = message.selected_text;
-  var paragraph = message.paragraph_text;
+  var paragraph_text = message.paragraph_text;
 
-  console.log(paragraph);
-
-  // Step 1 check word is fully selected
+  // Check word is fully selected
   var re = new RegExp("\\S*"+selected_text+"\\S*");
-  var matches = paragraph.match(re);
+  var matches = paragraph_text.match(re);
 
   if (matches[0]!==selected_text){
     selected_text = matches[0];
   }
 
-  // Step 2 send term & paragraph to server
-  var data = {
-    term: selected_text,
-    paragraph: paragraph,
-  };
-
+  // Create url for post request
   var query_format = '?format=json';
   var query_term = 'term='+selected_text;
-  var query_paragraph = 'paragraph='+paragraph;
-
-  console.log(paragraph);
+  var query_paragraph = 'paragraph='+paragraph_text;
 
   var query_string = query_format + '&' + query_term + '&' + query_paragraph;
 
@@ -46,6 +37,7 @@ function getDismbiguation(message, tab_id){
   	method: 'POST',
   };
 
+  // Send term & paragraph to server
   fetch(url, options)
     .then(function(response) {
       return response.json();
@@ -53,15 +45,20 @@ function getDismbiguation(message, tab_id){
     .then(function(json) {
       var message = {};
 
-      console.log(json);
-
       message.title = json.wikipage.title;
       message.extract = json.wikipage.extract;
       message.search_id = json.id;
 
       sendSummaryToBrowser(message, tab_id);
     }).catch(function(error) {
-      console.log(error);
+      var message = {};
+
+      // TODO: dont show feedback buttons if there is an error
+      message.title = 'Error';
+      message.extract = 'Could not retrieve information about '+selected_text;
+      message.search_id = '0';
+
+      sendSummaryToBrowser(message, tab_id);
     });
 
     function sendSummaryToBrowser(message, tab_id){
