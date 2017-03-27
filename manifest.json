@@ -12,7 +12,7 @@
     },
 
     "permissions": [
-      "<all_urls>",
+      "http://contextualised.pythonanywhere.com/",
       "contextMenus",
       "activeTab"
     ],

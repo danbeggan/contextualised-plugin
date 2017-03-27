@@ -31,7 +31,7 @@ function getInformation(message, tab_id){
 
   var query_string = query_format + '&' + query_term + '&' + query_paragraph;
 
-  var url = 'http://127.0.0.1:8000/api/searches/' + query_string;
+  var url = 'http://contextualised.pythonanywhere.com/api/searches/' + query_string;
 
   var options = {
   	method: 'POST',
@@ -76,7 +76,7 @@ function sendFeedback(message, tab_id){
 
   var query_string = query_format + '&' + feedback;
 
-  var url = 'http://127.0.0.1:8000/api/searches/'+ search_id + '/' + query_string;
+  var url = 'http://contextualised.pythonanywhere.com/api/searches/'+ search_id + '/' + query_string;
 
   var options = {
     method: 'PUT',
