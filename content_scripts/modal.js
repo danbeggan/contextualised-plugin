@@ -17,14 +17,20 @@ function createModal(message, sender) {
   closeButton.setAttribute("class", "close" );
   var closeButtonContent = document.createTextNode("\u00D7");
 
-  var feedbackButton = document.createElement('span');
-  feedbackButton.setAttribute("class", "feedback" );
-  var feedbackButtonContent = document.createTextNode("This was relevant");
+  var positiveFeedbackButton = document.createElement('span');
+  positiveFeedbackButton.setAttribute("class", "positivefeedback" );
+  var positiveFeedbackButtonContent = document.createTextNode("This was relevant");
 
-  var heading = document.createElement("h1");
+  var negativeFeedbackButton = document.createElement('span');
+  negativeFeedbackButton.setAttribute("class", "negativefeedback" );
+  var negativeFeedbackButtonContent = document.createTextNode("This wasn't relevant");
+
+  var heading = document.createElement("div");
+  heading.setAttribute("class", "modalHeading");
   var headingContent = document.createTextNode(message.title);
 
-  var paragraph = document.createElement("p");
+  var paragraph = document.createElement("div");
+  paragraph.setAttribute("class", "modalTextContent");
   var textContent = document.createTextNode(message.extract);
 
   var br = document.createElement("br");
@@ -38,8 +44,11 @@ function createModal(message, sender) {
   modalContent.appendChild(paragraph);
   paragraph.appendChild(textContent);
   modalContent.appendChild(br);
-  modalContent.appendChild(feedbackButton);
-  feedbackButton.appendChild(feedbackButtonContent);
+  modalContent.appendChild(positiveFeedbackButton);
+  positiveFeedbackButton.appendChild(positiveFeedbackButtonContent);
+  positiveFeedbackButton.appendChild(br);
+  modalContent.appendChild(negativeFeedbackButton);
+  negativeFeedbackButton.appendChild(negativeFeedbackButtonContent);
 
   // Append modal to the web page
   document.body.appendChild(modal);
@@ -55,9 +64,15 @@ function createModal(message, sender) {
     }
   };
 
-  feedbackButton.onclick = function() {
-    // TODO: send message to background script to return good or bad result
+  positiveFeedbackButton.onclick = function() {
     browser.runtime.sendMessage({"type": "feedback", "search_id": search_id ,"feedback": true});
+
+    modal.remove();
+    // send message
+  };
+
+  negativeFeedbackButton.onclick = function() {
+    browser.runtime.sendMessage({"type": "feedback", "search_id": search_id ,"feedback": false});
 
     modal.remove();
     // send message

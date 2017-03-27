@@ -7,13 +7,15 @@
   top: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
+  font-family: "Georgia", Georgia, serif;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 .modalContent {
-  font-size: 13px;
+  font-family: "Georgia", Georgia, serif;
+  font-size: 14px;
   position: relative;
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
@@ -23,8 +25,17 @@
   min-height: 20%;
 }
 
-h1 {
+.modalHeading {
+  font-family: "Georgia", Georgia, serif;
   font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.modalTextContent{
+  margin-bottom: 20px;
+  line-height: 1.4em;
 }
 
 .close {
@@ -41,17 +52,31 @@ h1 {
     cursor: pointer;
 }
 
-.feedback {
-  position: absolute;
+.positivefeedback {
   color: #59a84c;
-  float: right;
+  float: left;
   font-size: 14px;
   font-weight: bold;
   bottom: 20px;
 }
 
-.feedback:hover,
-.feedback:focus {
+.positivefeedback:hover,
+.positivefeedback:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.negativefeedback {
+  color: #cb3535;
+  font-size: 14px;
+  font-weight: bold;
+  bottom: 20px;
+  padding-left: 20px;
+}
+
+.negativefeedback:hover,
+.negativefeedback:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
