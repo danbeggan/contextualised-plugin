@@ -17,13 +17,20 @@ function createModal(message, sender) {
   closeButton.setAttribute("class", "close" );
   var closeButtonContent = document.createTextNode("\u00D7");
 
-  var positiveFeedbackButton = document.createElement('span');
-  positiveFeedbackButton.setAttribute("class", "positivefeedback" );
-  var positiveFeedbackButtonContent = document.createTextNode("This was relevant");
+  var positiveFeedbackButton;
+  var positiveFeedbackButtonContent;
+  var negativeFeedbackButton;
+  var negativeFeedbackButtonContent;
 
-  var negativeFeedbackButton = document.createElement('span');
-  negativeFeedbackButton.setAttribute("class", "negativefeedback" );
-  var negativeFeedbackButtonContent = document.createTextNode("This wasn't relevant");
+  if (search_id !== '0'){
+    positiveFeedbackButton = document.createElement('span');
+    positiveFeedbackButton.setAttribute("class", "positivefeedback" );
+    positiveFeedbackButtonContent = document.createTextNode("This was relevant");
+
+    negativeFeedbackButton = document.createElement('span');
+    negativeFeedbackButton.setAttribute("class", "negativefeedback" );
+    negativeFeedbackButtonContent = document.createTextNode("This wasn't relevant");
+  }
 
   var heading = document.createElement("div");
   heading.setAttribute("class", "modalHeading");
@@ -44,11 +51,14 @@ function createModal(message, sender) {
   modalContent.appendChild(paragraph);
   paragraph.appendChild(textContent);
   modalContent.appendChild(br);
-  modalContent.appendChild(positiveFeedbackButton);
-  positiveFeedbackButton.appendChild(positiveFeedbackButtonContent);
-  positiveFeedbackButton.appendChild(br);
-  modalContent.appendChild(negativeFeedbackButton);
-  negativeFeedbackButton.appendChild(negativeFeedbackButtonContent);
+
+  if (search_id !== '0'){
+    modalContent.appendChild(positiveFeedbackButton);
+    positiveFeedbackButton.appendChild(positiveFeedbackButtonContent);
+    positiveFeedbackButton.appendChild(br);
+    modalContent.appendChild(negativeFeedbackButton);
+    negativeFeedbackButton.appendChild(negativeFeedbackButtonContent);
+  }
 
   // Append modal to the web page
   document.body.appendChild(modal);
@@ -64,17 +74,15 @@ function createModal(message, sender) {
     }
   };
 
-  positiveFeedbackButton.onclick = function() {
-    browser.runtime.sendMessage({"type": "feedback", "search_id": search_id ,"feedback": true});
+  if (search_id !== '0'){
+    positiveFeedbackButton.onclick = function() {
+      browser.runtime.sendMessage({"type": "feedback", "search_id": search_id ,"feedback": true});
+      modal.remove();
+    };
 
-    modal.remove();
-    // send message
-  };
-
-  negativeFeedbackButton.onclick = function() {
-    browser.runtime.sendMessage({"type": "feedback", "search_id": search_id ,"feedback": false});
-
-    modal.remove();
-    // send message
-  };
+    negativeFeedbackButton.onclick = function() {
+      browser.runtime.sendMessage({"type": "feedback", "search_id": search_id ,"feedback": false});
+      modal.remove();
+    };
+  }
 }

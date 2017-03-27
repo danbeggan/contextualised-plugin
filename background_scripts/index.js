@@ -72,7 +72,7 @@ function sendFeedback(message, tab_id){
 
   // Need search id and wheter or not it was useful
   var query_format = '?format=json';
-  var feedback = 'correct_wiki_returned='+feedback;
+  feedback = 'correct_wiki_returned='+feedback;
 
   var query_string = query_format + '&' + feedback;
 
