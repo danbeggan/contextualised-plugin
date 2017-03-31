@@ -1,8 +1,6 @@
-/* TODO: define font and make it look a bit nicer */
-
 .modal {
   position: fixed; /* Stay in place */
-  z-index: 2147483647; /* Sit on top */
+  z-index: 2147483647; /* Sits on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
